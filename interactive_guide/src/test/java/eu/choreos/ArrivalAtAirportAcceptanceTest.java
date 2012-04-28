@@ -19,7 +19,7 @@ public class ArrivalAtAirportAcceptanceTest {
 
 	@BeforeClass
 	public static void setUp() throws Exception{
-		choreography = Choreography.build("/home/rehearsal/study/resources/arrivalAtAirport.yml");
+		choreography = Choreography.build("./resource/arrivalAtAirport.yml");
 		MockDeployer.deployWebTripMock(choreography);
 		
 		Service interactiveGuide = choreography.getServicesForRole("interactiveGuide").get(0);
