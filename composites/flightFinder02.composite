@@ -16,7 +16,7 @@
 </reference>
 
 <reference name="carParkReservation">
-	<binding.ws wsdlElement="http://api.choreos.eu#wsdl.port(CarParkReservation/CarParkReservationPort)" wsdli:wsdlLocation="file:///home/rehearsal/study/resources/carParkReservation/carParkReservation.wsdl"/>
+	<binding.ws wsdlElement="http://api.choreos.eu#wsdl.port(CarParkReservation/CarParkReservationPort)" wsdli:wsdlLocation="file:///media/stuff/workspace/CHOReOS/rehearsal_study_P2/resources/carParkReservation/carParkReservation.wsdl"/>
 </reference>
 
 </component>

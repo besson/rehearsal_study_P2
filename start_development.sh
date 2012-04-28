@@ -16,6 +16,7 @@ sed -i "s,WORKSPACE_DIR,$PATTERN,g" "$1/resource/arrivalAtAirport.yml"
 
 build_descriptor "interactive_guide"
 build_descriptor "car_park_reservation"
+build_descriptor "flight_finder"
 
 cp  "$COMP_TEMPLATES"/* "$COMPOSITES/"
 

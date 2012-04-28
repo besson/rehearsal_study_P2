@@ -32,7 +32,7 @@ public class Orchestrator implements CarParkReservation{
 		entry.setLongitude(factory.createCarParkEntryLongitude(longitude));
 		
 		
-		//interactiveGuide.setCarParkInfo(entry);
+		interactiveGuide.setCarParkInfo(entry);
 		
 		return "OK";
 	}
