@@ -52,7 +52,7 @@ public class Task03Test {
 		Service service = flightFinder.getServicesForRole("flightFinder").get(0);
 		String webTripWSDL = service.getUri();
 				
-		WSMock webTripMock = new WSMock("mocks/webTrip", webTripWSDL, "4321", true);
+		WSMock webTripMock = new WSMock("mocks/webTrip", "4321", webTripWSDL, true);
 		MockResponse response = new MockResponse().whenReceive("A1").replyWith(getFligthResponse());
 				
 		webTripMock.returnFor("getFlight", response);
@@ -67,7 +67,7 @@ public class Task03Test {
 
 	private static Item getFligthResponse() {
 		Item getFlightInfoResponse = new ItemImpl("getFlightResponse"); 
-		Item flightInformation = new ItemImpl("flight"); 
+		Item flightInformation = getFlightInfoResponse.addChild("flight"); 
 
 		flightInformation.addChild("id").setContent("0815"); 
 		flightInformation.addChild("time").setContent("130p"); 

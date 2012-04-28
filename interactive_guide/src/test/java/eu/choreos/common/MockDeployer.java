@@ -19,7 +19,7 @@ public class MockDeployer {
 		String webTripWSDL = service.getUri();
 		
 		// create the Mock here
-		webTripMock = new WSMock("mocks/webTrip", webTripWSDL, "4321", true);
+		webTripMock = new WSMock("mocks/webTrip", "4321", webTripWSDL, true);
 		
 		MockResponse response = new MockResponse().whenReceive("A1").replyWith(getFligthResponse());
 		

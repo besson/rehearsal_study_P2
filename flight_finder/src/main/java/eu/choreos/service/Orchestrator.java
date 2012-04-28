@@ -30,7 +30,7 @@ public class Orchestrator implements FlightFinder{
 		info.setTerminal(flight.getTerminal());
 		info.setTime(flight.getTime());
 		
-		//carParkReservation.setPassengerInfo(id, info.getTerminal());
+		carParkReservation.setPassengerInfo(id, info.getTerminal());
 		
 		return info;
 	}
