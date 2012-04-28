@@ -12,7 +12,7 @@
 </service>
 
 <reference name="webTrip">
-	<binding.ws wsdlElement="http://service.safetrip.com#wsdl.port(WebTripImplService/WebTripImplPort)" wsdli:wsdlLocation="file:///home/besson/workspace/CHOReOS/rehearsal_study_P2/resources/webTrip/webTrip.wsdl"/>
+	<binding.ws wsdlElement="http://service.safetrip.com#wsdl.port(WebTripImplService/WebTripImplPort)" wsdli:wsdlLocation="file:///media/stuff/workspace/CHOReOS/rehearsal_study_P2/resources/webTrip/webTrip.wsdl"/>
 </reference>
 
 <reference name="carParkReservation">
