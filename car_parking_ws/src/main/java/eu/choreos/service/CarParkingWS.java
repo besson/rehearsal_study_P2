@@ -8,23 +8,17 @@ import com.carsolutions.ParkSafe;
 public class CarParkingWS {
 
 	public String getCarParkCode (String customerId, String terminal){
-		//TODO: Erase
-		ParkSafe system = new ParkSafe();
 		
-		return system.getCarParkPlace(customerId, terminal);
+		return null;
 	}
 	
 	public String getLatitude (String carParkId){
-		//TODO: Erase
-		ParkSafe system = new ParkSafe();
 		
-		return system.getLatitude(carParkId);
+		return null;
 	}
 	
 	public String getLongitude (String carParkId){
-		//TODO: Erase
-		ParkSafe system = new ParkSafe();
 		
-		return system.getLongitude(carParkId);
+		return null;
 	}
 }

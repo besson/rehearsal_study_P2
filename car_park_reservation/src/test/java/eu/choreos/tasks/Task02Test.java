@@ -1,5 +1,6 @@
 package eu.choreos.tasks;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
 import java.util.List;
@@ -33,9 +34,6 @@ public class Task02Test {
 		String carParkingWSWSDL = service.getUri();
 		
 		//create the interceptor here
-		//TODO erase
-		interceptor = new MessageInterceptor("7003");
-		interceptor.interceptTo(carParkingWSWSDL);
 		
 	}
 	
@@ -43,33 +41,12 @@ public class Task02Test {
 	public void shouldReturnAConfirmationMessageForSetPassengerInfoOperation() throws Exception {
 		// input: A1, 8 (see the contract of carParkReservation by using the item explorer)
 		// output: "OK"
-		
-		// TODO: erase and put assertTrue(false)
-		WSClient client = new WSClient(carParkReservationWSDL);
-		
-		Item setPassengerInfo = new ItemImpl("setPassengerInfo"); 
-		setPassengerInfo.addChild("arg1").setContent("A1"); 
-		setPassengerInfo.addChild("arg0").setContent("8");
-
-		Item response = client.request("setPassengerInfo", setPassengerInfo);
-		
-		assertEquals("OK", response.getContent("return"));
+	
+		fail();
 	}
 	
 	@Test
 	public void shouldReturnTheCorrectMessageToTheCarParkingService() throws Exception {
-		// TODO erase
-		WSClient client = new WSClient(carParkReservationWSDL);
-		
-		Item setPassengerInfo = new ItemImpl("setPassengerInfo"); 
-		setPassengerInfo.addChild("arg1").setContent("A1"); 
-		setPassengerInfo.addChild("arg0").setContent("8");
-		
-		client.request("setPassengerInfo", setPassengerInfo);
-		
-		List<Item> messages = interceptor.getMessages();
-		
-		assertEquals("A1", messages.get(0).getChild("arg1").getContent());
-		assertEquals("8", messages.get(0).getChild("arg0").getContent());
+		fail();
 	}
 }
