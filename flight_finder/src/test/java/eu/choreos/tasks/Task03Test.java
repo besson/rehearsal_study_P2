@@ -32,20 +32,12 @@ public class Task03Test {
 	
 	@Test
 	public void shouldForwardPassengerIdAndTerminalToTheCarParkReservation() throws Exception {
+		// input: passengerId = A1
+
 		Service carParkReservation = choreography.getServicesForRole("carParkReservation").get(0);
 		String carParkReservationWSDL = carParkReservation.getUri();
 		
-		// TODO erase and add assertTrue(false)
-		MessageInterceptor interceptor = new MessageInterceptor("6003");
-		interceptor.interceptTo(carParkReservationWSDL);
-		
-		WSClient client = new WSClient(flightFinder.getUri());
-		client.request("getFlightInfo", "A1");
-		
-		List<Item> messages = interceptor.getMessages();
-		
-		assertEquals("A1", messages.get(0).getChild("arg0").getContent());
-		assertEquals("8", messages.get(0).getChild("arg1").getContent());
+		fail();
 	}
 	
 	private static void deployWebTripMock()throws Exception{

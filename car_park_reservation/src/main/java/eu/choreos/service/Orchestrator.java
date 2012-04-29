@@ -21,14 +21,14 @@ public class Orchestrator implements CarParkReservation{
 		return null;
 	}
 
-	private CarParkEntry getCarParKEntry(String id, String codeId,
+	private CarParkEntry buildCarParkEntry(String passengerId, String carParkId,
 			String latitude, String longitude) {
 	
 		ObjectFactory factory = new ObjectFactory();
 		CarParkEntry entry = factory.createCarParkEntry();
 
-		entry.setCpId(factory.createCarParkEntryCpId(codeId));
-		entry.setPId(factory.createCarParkEntryPId(id));
+		entry.setCpId(factory.createCarParkEntryCpId(carParkId));
+		entry.setPId(factory.createCarParkEntryPId(passengerId));
 		entry.setLatitude(factory.createCarParkEntryLatitude(latitude));
 		entry.setLongitude(factory.createCarParkEntryLongitude(longitude));
 		return entry;

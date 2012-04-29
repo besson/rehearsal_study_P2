@@ -25,10 +25,9 @@ public class CarParkingWSTest {
 	}
 	
 	@Test
-	public void shouldReturnReturnTheCarParkCode() throws Exception {
+	public void shouldReturnTheCarParkCode() throws Exception {
 		// input: A1, 8
 		// output: J123
-		//TODO: Erase
 		
 		fail();
 	}

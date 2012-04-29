@@ -37,14 +37,29 @@ public class Task03Test {
 	
 	@Test
 	public void shouldSendCarParkInfoToInteractiveGuideCorrectly() throws Exception {
-		// input: A1, 8 (see the contract of carParkReservation by using the item explorer)
+		/**
+		 * input: A1, 8 
+		 * 
+		 * see the contract of interactive guide (using the item explorer) to find out
+		 * the interface of setCarParkInfo message. This is the message that will be
+		 * intercepted.
+		 */
 
 		//create the interceptor here
 		fail();
 	}
 	
 	private static void deployWebTripMock()throws Exception{
-		fail();
+		Service flightFinder = choreography.getServicesForRole("flightFinder").get(0);
+
+		Service service = flightFinder.getServicesForRole("flightFinder").get(0);
+		String webTripWSDL = service.getUri();
+
+		WSMock webTripMock = new WSMock("mocks/webTrip", "4321", webTripWSDL, true);
+		MockResponse response = new MockResponse().whenReceive("A1").replyWith(getFligthResponse());
+
+		webTripMock.returnFor("getFlight", response);
+		webTripMock.start();
 	}
 
 	private static Item getFligthResponse() {
