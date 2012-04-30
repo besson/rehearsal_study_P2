@@ -5,6 +5,7 @@ PATTERN=$(pwd)
 COMP_TEMPLATES="./utils/composite-templates"
 DESC_TEMPLATE="./utils/descriptor-templates/arrivalAtAirport.yml"
 CLASS_TEMPLATE="./utils/classpath-templates"
+SAND_DIR="training/sand-box"
 
 COMPOSITES="composites"
 
@@ -21,6 +22,9 @@ build_descriptor "interactive_guide"
 build_descriptor "car_park_reservation"
 build_descriptor "flight_finder"
 build_descriptor "car_parking_ws"
+
+cp "$CLASS_TEMPLATE/sand_box/.classpath" "$SAND_DIR"
+sed -i "s,WORKSPACE_DIR,$PATTERN,g" "$SAND_DIR/.classpath"
 
 cp  "$COMP_TEMPLATES"/* "$COMPOSITES/"
 
