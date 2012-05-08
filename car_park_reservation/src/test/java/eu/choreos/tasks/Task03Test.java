@@ -46,7 +46,14 @@ public class Task03Test {
 		 */
 
 		//create the interceptor here
-		fail();
+		MessageInterceptor interceptor = new MessageInterceptor("6001");
+		interceptor.interceptTo(interactiveGuideWSDL);
+		WSClient client = new WSClient(carParkReservationWSDL);
+		client.request("setPassengerInfo", "A1", "8");
+		List<Item> messages = interceptor.getMessages();
+		Item message = messages.get(0).getChild("arg0");
+		assertEquals("A1", message.getContent("pId"));
+		assertEquals("J123", message.getContent("cpId"));
 	}
 	
 	private static void deployWebTripMock()throws Exception{

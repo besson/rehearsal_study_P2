@@ -6,9 +6,9 @@ import eu.choreos.CarParkEntry;
 import eu.choreos.ObjectFactory;
 import eu.choreos.api.CarParkReservation;
 import eu.choreos.api.InteractiveGuidePortType;
+import eu.choreos.service.CarParkingWS;
 
 public class Orchestrator implements CarParkReservation{
-	
 	@Reference
 	private CarParkingWS carParking;
 	
@@ -17,8 +17,12 @@ public class Orchestrator implements CarParkReservation{
 
 	@Override
 	public String setPassengerInfo(String id, String terminal) {
-		
-		return null;
+		String code = carParking.getCarParkCode(id, terminal);
+		String latitude = carParking.getLatitude(id);
+		String longitude = carParking.getLongitude(id);
+		CarParkEntry entry = buildCarParkEntry(id, code, latitude, longitude);
+		interactiveGuide.setCarParkInfo(entry);
+		return "OK";
 	}
 
 	private CarParkEntry buildCarParkEntry(String passengerId, String carParkId,

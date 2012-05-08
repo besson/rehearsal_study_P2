@@ -12,11 +12,11 @@
 </service>
 
 <reference name="carParking">
-	<binding.ws wsdlElement="http://service.choreos.eu#wsdl.port(CarParkingWSService/CarParkingWSPort)" wsdli:wsdlLocation="file:///home/besson/workspace/CHOReOS/rehearsal_study_P2/resources/carParkingWS/carParkingWS.wsdl"/>
+	<binding.ws wsdlElement="http://service.choreos.eu#wsdl.port(CarParkingWSService/CarParkingWSPort)" wsdli:wsdlLocation="file:///home/users/felipeb/workspace/team5/rehearsal_study_P2/resources/carParkingWS/carParkingWS.wsdl"/>
 </reference>
 
 <reference name="interactiveGuide">
-	<binding.ws wsdlElement="http://api.choreos.eu#wsdl.port(InteractiveGuide/InteractiveGuidePort)" wsdli:wsdlLocation="file:///home/besson/workspace/CHOReOS/rehearsal_study_P2/resources/interactiveGuide/interactiveGuide.wsdl"/>
+	<binding.ws wsdlElement="http://api.choreos.eu#wsdl.port(InteractiveGuide/InteractiveGuidePort)" wsdli:wsdlLocation="file:///home/users/felipeb/workspace/team5/rehearsal_study_P2/resources/interactiveGuide/interactiveGuide.wsdl"/>
 </reference>
 
 </component>

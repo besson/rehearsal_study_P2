@@ -35,8 +35,15 @@ final String WSDL = "http://localhost:9876/globalWeather?wsdl";
 		 *  
 		 *  Configure the interceptor to use the port 6789
 		 **/
-		
-		fail();
+		MessageInterceptor interceptor = new MessageInterceptor("6789");
+		interceptor.interceptTo(WSDL);
+		WSClient client = new WSClient(interceptor.getProxyWsdl());
+		client.request("getWeather", "brables", "Sao Paulo");
+		client.request("getWeather", "Brazil", "Sao Paulo");
+		List<Item> messages = interceptor.getMessages();
+		Item message = messages.get(1);
+		assertEquals("Brazil", message.getContent("countryName"));
+		assertEquals("Sao Paulo", message.getContent("cityName"));
 	}
 
 }

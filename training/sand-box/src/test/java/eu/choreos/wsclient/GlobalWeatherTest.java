@@ -14,6 +14,7 @@ public class GlobalWeatherTest {
 	
 	final String WSDL = "http://localhost:9876/globalWeather?wsdl";
 	
+	
 	@BeforeClass
 	public static void setUp(){
 		ServiceDeployer.deploy();
@@ -38,8 +39,14 @@ public class GlobalWeatherTest {
 		 *  relative humidity: 77%;
 		 *  
 		 */
+		WSClient client = new WSClient(WSDL);
+		Item response = client.request("getWeather", "Brazil", "Sao Paulo");
 		
-		fail();
+		Item bla = response.getChild("return");
+	    assertEquals("21C", bla.getContent("temperature"));
+	    assertEquals("Mar 30, 2012", bla.getContent("date"));
+	    assertEquals("03:00 PM", bla.getContent("time"));
+		
 	}
 
 }
