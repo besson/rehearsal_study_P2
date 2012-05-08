@@ -36,8 +36,18 @@ public class Task03Test {
 
 		Service carParkReservation = choreography.getServicesForRole("carParkReservation").get(0);
 		String carParkReservationWSDL = carParkReservation.getUri();
+
+		final MessageInterceptor carParkReservationInterceptor = new MessageInterceptor("6003");
+		carParkReservationInterceptor.interceptTo(carParkReservationWSDL);
 		
-		fail();
+		final WSClient flightFinderClient = new WSClient(flightFinder.getUri());
+		
+		flightFinderClient.request("getFlightInfo", "A1");
+		final List<Item> messages = carParkReservationInterceptor.getMessages();
+		final Item responseItem = messages.get(0);
+		
+		assertEquals("A1", responseItem.getChild("arg0").getContent());
+		assertEquals("8", responseItem.getChild("arg1").getContent());
 	}
 	
 	private static void deployWebTripMock()throws Exception{

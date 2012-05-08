@@ -36,8 +36,32 @@ public class GlobalWeatherMockTest {
 		 *  Configure the mock to use the port 6789)
 		 **/
 		
-		fail();
+		final WSMock mock = new WSMock("WeatherMock", "6789", WSDL, true);
+		mock.start();
 		
+		final Item resultDefault = buildWeatherResult("Mar 30, 2012", "03:30 PM", "Joao Pessoa, Brazil", "95%", "32C");
+		final MockResponse responseDefault = new MockResponse().whenReceive("*").replyWith(resultDefault);
+		
+		final Item resultDresdenGer = buildWeatherResult("Mai 01, 2012", "04:30 PM", "Dresden, Germany", "30%", "25C");
+		final MockResponse responseDresden = new MockResponse().whenReceive("Dresden", "Germany").replyWith(resultDresdenGer);
+		
+		//final Item resultGer = buildWeatherResult("Mai 01, 2012", "04:30 PM", "Berlin, Germany", "30%", "25C");
+		//final MockResponse responseGer = new MockResponse().whenReceive("XXX", "Germany").replyWith(resultGer);
+		
+		mock.returnFor("getWeather", responseDresden, responseDefault);
+		
+		final WSClient client = new WSClient(mock.getWsdl());
+		
+		final Item resultDefaultItem = client.request("getWeather", "foo", "bar");
+		assertEquals(resultDefaultItem.getChild("return").getChild("location").getContent(), "Joao Pessoa, Brazil");
+		
+		final Item resultDresdenGerItem = client.request("getWeather", "Dresden", "Germany");
+		assertEquals(resultDresdenGerItem.getChild("return").getChild("location").getContent(), "Dresden, Germany");
+		assertEquals(resultDresdenGerItem.getChild("return").getChild("temperature").getContent(), "25C");
+
+		//final Item resultGerItem = client.request("getWeather", "XXX", "Germany");
+		//assertEquals(resultGerItem.getChild("return").getChild("location").getContent(), "Berlin, Germany");
+		//assertEquals(resultGerItem.getChild("return").getChild("temperature").getContent(), "25C");
 	}
 	
 	private Item buildWeatherResult(String date, String time, String location, String relativeHuminity, String temperature){

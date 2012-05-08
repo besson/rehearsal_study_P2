@@ -36,18 +36,42 @@ public class Task02Test {
 		String webTripWSDL = service.getUri();
 		
 		// create the Mock here
+		webTripMock = new WSMock("webTripMock", "4321", webTripWSDL, true);
+		MockResponse response = new MockResponse().whenReceive("A1").replyWith(getFligthResponse());
+		webTripMock.returnFor("getFlight", response);
+		webTripMock.start();
 	}
 	
 	@Test
 	public void shouldReturnTheFlightInformationForTheGetFlightInfoOperation() throws Exception {
 		// input passengerId = A1
 		// output a FlightInfo object with the following attributes: id = 0815, company = AA, destination = Paris, time = 130p, terminal = 8 
-		fail();
+		
+		final Service flightFinderService = choreography.getServicesForRole("flightFinder").get(0);
+		final WSClient wsClient = new WSClient(flightFinderService.getUri());
+		final Item responseItem = wsClient.request("getFlightInfo", "A1");
+		
+		final Item returnItem = responseItem.getChild("return");
+		
+		assertEquals(returnItem.getChild("id").getContent(), "0815");
+		assertEquals(returnItem.getChild("company").getContent(), "AA");
+		assertEquals(returnItem.getChild("destination").getContent(), "Paris");
+		assertEquals(returnItem.getChild("time").getContent(), "130p");
+		assertEquals(returnItem.getChild("terminal").getContent(), "8");		
 	}
 	
 	@Test
-	public void shouldTheCorrectMessageToTheCarParkingService() throws Exception {
-		fail();
+	public void shouldSendTheCorrectMessageToTheWebTripMock() throws Exception {
+//		WSClient wsClient =  new WSClient(webTripMock.getWsdl());
+//		Item responseItem = wsClient.request("getFlight", "A1");
+//		Item returnItem = responseItem.getChild("return");
+		
+		WSClient flightFinderClient = new WSClient(flightFinderWSDL);
+		flightFinderClient.request("getFlightInfo", "A1");
+		
+		Item mockedMessage = webTripMock.getInterceptedMessages().get(0);
+
+		assertEquals(mockedMessage.getChild("id").getContent(), "A1");
 	}
 	
 	private static Item getFligthResponse() {

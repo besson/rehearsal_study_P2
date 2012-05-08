@@ -44,9 +44,22 @@ public class Task03Test {
 		 * the interface of setCarParkInfo message. This is the message that will be
 		 * intercepted.
 		 */
-
+		
 		//create the interceptor here
-		fail();
+		final MessageInterceptor mInterceptor = new MessageInterceptor("6001");
+		mInterceptor.interceptTo(interactiveGuideWSDL);
+		
+		final WSClient carParkReservationClient = new WSClient(carParkReservationWSDL);
+		carParkReservationClient.request("setPassengerInfo", "A1", "8");
+		
+		final List<Item> messages = mInterceptor.getMessages();
+		final Item responseItem = messages.get(0);
+		final Item argItem = responseItem.getChild("arg0");
+		
+		assertEquals("A1", argItem.getChild("pId").getContent());
+		assertEquals("J123", argItem.getChild("cpId").getContent());
+		assertEquals("46 37 W", argItem.getChild("longitude").getContent());
+		assertEquals("23 32 S", argItem.getChild("latitude").getContent());
 	}
 	
 	private static void deployWebTripMock()throws Exception{

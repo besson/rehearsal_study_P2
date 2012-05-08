@@ -16,9 +16,14 @@ public class Orchestrator implements CarParkReservation{
 	private InteractiveGuidePortType interactiveGuide;
 
 	@Override
-	public String setPassengerInfo(String id, String terminal) {
+	public String setPassengerInfo(final String id, final String terminal) {
+		final String parkCode = carParking.getCarParkCode(id, terminal);
+		final String latitude = carParking.getLatitude(id);		
+		final String longitude = carParking.getLongitude(id);
 		
-		return null;
+		interactiveGuide.setCarParkInfo(buildCarParkEntry(id, parkCode, latitude, longitude));
+		
+		return "OK";
 	}
 
 	private CarParkEntry buildCarParkEntry(String passengerId, String carParkId,

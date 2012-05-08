@@ -36,7 +36,6 @@ public class ArrivalAtAirportAcceptanceTest {
 		Item response = client.request("calculateLocations", "A1");
 		
 		assertEquals("Calculation in progress", response.getChild("return").getContent());
-		
 	}
 	
 	@Test

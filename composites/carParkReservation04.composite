@@ -16,7 +16,7 @@
 </reference>
 
 <reference name="interactiveGuide">
-	<binding.ws wsdlElement="http://api.choreos.eu#wsdl.port(InteractiveGuide/InteractiveGuidePort)" wsdli:wsdlLocation="file:///home/besson/workspace/CHOReOS/rehearsal_study_P2/resources/interactiveGuide/interactiveGuide04.wsdl"/>
+	<binding.ws wsdlElement="http://api.choreos.eu#wsdl.port(InteractiveGuide/InteractiveGuidePort)" wsdli:wsdlLocation="file:///home/users/felipeb/workspace/team1/rehearsal_study_P2/resources/interactiveGuide/interactiveGuide04.wsdl"/>
 </reference>
 
 </component>
