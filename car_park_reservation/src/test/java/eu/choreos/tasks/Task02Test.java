@@ -34,6 +34,8 @@ public class Task02Test {
 		String carParkingWSWSDL = service.getUri();
 		
 		//create the interceptor here
+		interceptor = new MessageInterceptor("7003");
+		interceptor.interceptTo(carParkingWSWSDL);
 		
 	}
 	
@@ -41,12 +43,22 @@ public class Task02Test {
 	public void shouldReturnAConfirmationMessageForSetPassengerInfoOperation() throws Exception {
 		// input: A1, 8 (see the contract of carParkReservation by using the item explorer)
 		// output: "OK"
-	
-		fail();
+		WSClient client = new WSClient(carParkReservationWSDL);
+		Item setPassengerInfoResponse = client.request("setPassengerInfo", "A1", "8");
+		String return1 = setPassengerInfoResponse.getContent("return");
+		assertEquals("OK", return1);
 	}
 	
 	@Test
 	public void shouldReturnTheCorrectMessageToTheCarParkingService() throws Exception {
-		fail();
+		WSClient client = new WSClient(carParkReservationWSDL);
+		client.request("setPassengerInfo", "A1", "8");
+		
+		List<Item> messages = interceptor.getMessages();
+		Item message = messages.get(0);
+		
+		assertEquals("A1", message.getContent("arg0"));
+		assertEquals("8", message.getContent("arg1"));
+		
 	}
 }

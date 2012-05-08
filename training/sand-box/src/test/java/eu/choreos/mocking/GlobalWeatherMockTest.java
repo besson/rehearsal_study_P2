@@ -36,8 +36,21 @@ public class GlobalWeatherMockTest {
 		 *  Configure the mock to use the port 6789)
 		 **/
 		
-		fail();
+		Item response = buildWeatherResult("Mar 30, 2012", "05:00 PM", "Sao Paulo/Congonhas Airport, Brazil", "77%", "21C");
 		
+		WSMock mock = new WSMock("getWeather", "6789", WSDL);
+		mock.start();
+		
+		MockResponse resp = new MockResponse().whenReceive("Brazil", "Sao Paulo").replyWith(response);
+		
+		
+		mock.returnFor("getWeather", resp);
+		
+		WSClient client = new WSClient(mock.getWsdl());
+		
+		Item result = client.request("getWeather", "Brazil", "Sao Paulo");
+		
+		assertEquals(response.getChild("return").getContent("time"), result.getChild("return").getContent("time"));
 	}
 	
 	private Item buildWeatherResult(String date, String time, String location, String relativeHuminity, String temperature){

@@ -33,11 +33,20 @@ public class Task03Test {
 	@Test
 	public void shouldForwardPassengerIdAndTerminalToTheCarParkReservation() throws Exception {
 		// input: passengerId = A1
-
+		
 		Service carParkReservation = choreography.getServicesForRole("carParkReservation").get(0);
 		String carParkReservationWSDL = carParkReservation.getUri();
+
+		MessageInterceptor interceptor = new MessageInterceptor("6003");
+		interceptor.interceptTo(carParkReservationWSDL);
 		
-		fail();
+		WSClient client = new WSClient(flightFinder.getUri());
+		client.request("getFlightInfo", "A1");
+		
+		List<Item> messages = interceptor.getMessages();
+		Item message = messages.get(0);
+		
+		assertEquals("A1", message.getContent("arg0"));
 	}
 	
 	private static void deployWebTripMock()throws Exception{

@@ -1,15 +1,15 @@
 roles:
     - role: &1
        name: interactiveGuide
-       contractUri: file:///home/besson/workspace/CHOReOS/rehearsal_study_P2/utils/contracts/interactiveGuide?wsdl
+       contractUri: file:///home/users/felipeb/workspace/team7/rehearsal_study_P2/utils/contracts/interactiveGuide?wsdl
 
     - role: &2
        name: flightFinder
-       contractUri: file:///home/besson/workspace/CHOReOS/rehearsal_study_P2/utils/contracts/flightFinder.wsdl
+       contractUri: file:///home/users/felipeb/workspace/team7/rehearsal_study_P2/utils/contracts/flightFinder.wsdl
 
     - role: &3
        name: carParkReservation
-       contractUri: file:///home/besson/workspace/CHOReOS/rehearsal_study_P2/utils/contracts/carParkReservation.wsdl
+       contractUri: file:///home/users/felipeb/workspace/team7/rehearsal_study_P2/utils/contracts/carParkReservation.wsdl
 
 
 services:
@@ -19,7 +19,7 @@ services:
     - uri: http://localhost:8002/services/flightFinder?wsdl
       role: *2
       participants:
-        - uri: file:///home/besson/workspace/CHOReOS/rehearsal_study_P2/utils/contracts/webTrip.wsdl
+        - uri: file:///home/users/felipeb/workspace/team7/rehearsal_study_P2/utils/contracts/webTrip.wsdl
 
     - uri: http://localhost:8003/services/carParkReservation?wsdl
       role: *3

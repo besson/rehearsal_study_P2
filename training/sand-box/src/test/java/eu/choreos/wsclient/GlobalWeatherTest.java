@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import eu.choreos.ServiceDeployer;
 import eu.choreos.vv.clientgenerator.Item;
+import eu.choreos.vv.clientgenerator.ItemImpl;
 import eu.choreos.vv.clientgenerator.WSClient;
 
 public class GlobalWeatherTest {
@@ -38,8 +39,12 @@ public class GlobalWeatherTest {
 		 *  relative humidity: 77%;
 		 *  
 		 */
-		
-		fail();
+		WSClient client = new WSClient(WSDL);
+		Item response = client.request("getWeather", "Brazil", "Sao Paulo"); 
+		Item return1 = response.getChild("return");
+		String relativeHumidity = return1.getContent("relativeHumidity");
+		String temperature = return1.getContent("temperature");
+		assertEquals("21C", temperature);
+		assertEquals("77%", relativeHumidity);
 	}
-
 }
