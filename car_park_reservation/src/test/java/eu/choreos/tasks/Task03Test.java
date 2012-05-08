@@ -1,6 +1,5 @@
 package eu.choreos.tasks;
 
-import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
 import java.util.List;
@@ -37,27 +36,37 @@ public class Task03Test {
 	
 	@Test
 	public void shouldSendCarParkInfoToInteractiveGuideCorrectly() throws Exception {
-		/**
-		 * input: A1, 8 
-		 * 
-		 * see the contract of interactive guide (using the item explorer) to find out
-		 * the interface of setCarParkInfo message. This is the message that will be
-		 * intercepted.
-		 */
+		// input: A1, 8 (see the contract of carParkReservation by using the item explorer)
 
 		//create the interceptor here
-		fail();
+		//TODO erase and put assertTrue(false);
+		MessageInterceptor interceptor = new MessageInterceptor("6001");
+		interceptor.interceptTo(interactiveGuideWSDL);
+		
+		WSClient client = new WSClient(carParkReservationWSDL);
+		
+		Item setPassengerInfo = new ItemImpl("setPassengerInfo"); 
+		setPassengerInfo.addChild("arg1").setContent("8"); 
+		setPassengerInfo.addChild("arg0").setContent("A1");
+		
+		client.request("setPassengerInfo", setPassengerInfo);
+		
+		List<Item> messages = interceptor.getMessages();
+		
+		assertEquals("A1", messages.get(0).getChild("arg0").getChild("pId").getContent());
+		assertEquals("J123", messages.get(0).getChild("arg0").getChild("cpId").getContent());
+		
 	}
 	
 	private static void deployWebTripMock()throws Exception{
-		Service flightFinder = choreography.getServicesForRole("flightFinder").get(0);
-
+		Service flightFinder = choreography.getServicesForRole("flightFinder").get(0);		
+		
 		Service service = flightFinder.getServicesForRole("flightFinder").get(0);
 		String webTripWSDL = service.getUri();
-
+				
 		WSMock webTripMock = new WSMock("mocks/webTrip", "4321", webTripWSDL, true);
 		MockResponse response = new MockResponse().whenReceive("A1").replyWith(getFligthResponse());
-
+				
 		webTripMock.returnFor("getFlight", response);
 		webTripMock.start();
 	}

@@ -6,7 +6,7 @@ COMP_TEMPLATES="./utils/composite-templates"
 DESC_TEMPLATE="./utils/descriptor-templates/arrivalAtAirport.yml"
 CLASS_TEMPLATE="./utils/classpath-templates"
 SAND_DIR="training/sand-box"
-PSAF_DIR="park_safe"
+
 COMPOSITES="composites"
 
 
@@ -25,10 +25,6 @@ build_descriptor "car_parking_ws"
 
 cp "$CLASS_TEMPLATE/sand_box/.classpath" "$SAND_DIR"
 sed -i "s,WORKSPACE_DIR,$PATTERN,g" "$SAND_DIR/.classpath"
-
-
-cp "$CLASS_TEMPLATE/park_safe/.classpath" "$PSAF_DIR"
-sed -i "s,WORKSPACE_DIR,$PATTERN,g" "$PSAF_DIR/.classpath"
 
 cp  "$COMP_TEMPLATES"/* "$COMPOSITES/"
 

@@ -18,19 +18,23 @@ public class Orchestrator implements CarParkReservation{
 	@Override
 	public String setPassengerInfo(String id, String terminal) {
 		
-		return null;
-	}
-
-	private CarParkEntry buildCarParkEntry(String passengerId, String carParkId,
-			String latitude, String longitude) {
-	
+		String codeId = carParking.getCarParkCode(id, terminal);
+		
+		String latitude =  carParking.getLatitude(codeId);
+		String longitude = carParking.getLongitude(codeId);
+		
 		ObjectFactory factory = new ObjectFactory();
 		CarParkEntry entry = factory.createCarParkEntry();
 
-		entry.setCpId(factory.createCarParkEntryCpId(carParkId));
-		entry.setPId(factory.createCarParkEntryPId(passengerId));
+		entry.setCpId(factory.createCarParkEntryCpId(codeId));
+		entry.setPId(factory.createCarParkEntryPId(id));
 		entry.setLatitude(factory.createCarParkEntryLatitude(latitude));
 		entry.setLongitude(factory.createCarParkEntryLongitude(longitude));
-		return entry;
+		
+		
+		interactiveGuide.setCarParkInfo(entry);
+		
+		return "OK";
 	}
+
 }

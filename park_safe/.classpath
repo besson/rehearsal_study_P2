@@ -4,6 +4,6 @@
 	<classpathentry including="**/*.java" kind="src" path="src/main/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/home/besson/workspace/CHOReOS/rehearsal_study_P2/lib/rehearsal_0.13_lib/junit-4.8.2.jar"/>
-	<classpathentry kind="lib" path="/home/besson/workspace/CHOReOS/rehearsal_study_P2/lib/rehearsal_0.13_lib/activation-1.1.jar"/>
+	<classpathentry kind="lib" path="/media/stuff/workspace/CHOReOS/rehearsal_study_P2/lib/rehearsal_0.13_lib/activation-1.1.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

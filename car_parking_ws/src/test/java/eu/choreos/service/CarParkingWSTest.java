@@ -25,27 +25,34 @@ public class CarParkingWSTest {
 	}
 	
 	@Test
-	public void shouldReturnTheCarParkCode() throws Exception {
+	public void shouldReturnReturnTheCarParkCode() throws Exception {
 		// input: A1, 8
 		// output: J123
+		//TODO: Erase
+		WSClient client = new WSClient(WSDL_URI);
+		Item response = client.request("getCarParkCode", "A1", "8");
 		
-		fail();
+		assertEquals("J123", response.getChild("return").getContent());
 	}
 	
 	@Test
 	public void shouldReturnTheLatitude() throws Exception {
 		// input: J123
 		// output: 23 32 S
+		WSClient client = new WSClient(WSDL_URI);
+		Item response = client.request("getLatitude", "J123");
 		
-		fail();
+		assertEquals("23 32 S", response.getChild("return").getContent());
 	}
 	
 	@Test
 	public void shouldReturnTheLongitude() throws Exception {
 		// input: J123
 		// output: 46 37 W
+		WSClient client = new WSClient(WSDL_URI);
+		Item response = client.request("getLongitude", "J123");
 		
-		fail();
+		assertEquals("46 37 W", response.getChild("return").getContent());
 	}
 
 }
