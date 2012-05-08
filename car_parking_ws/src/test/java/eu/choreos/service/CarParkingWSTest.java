@@ -6,6 +6,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.sun.xml.internal.ws.api.server.SDDocument.WSDL;
+
 import eu.choreos.common.ServiceDeployer;
 import eu.choreos.vv.clientgenerator.Item;
 import eu.choreos.vv.clientgenerator.WSClient;
@@ -13,10 +15,12 @@ import eu.choreos.vv.clientgenerator.WSClient;
 public class CarParkingWSTest {
 	
 	final private String WSDL_URI = "http://localhost:1234/carParkingWS?wsdl";
+	private WSClient client;
 	
 	@Before
 	public void setUp() throws Exception {
 		ServiceDeployer.deploy();
+		client  = new WSClient(WSDL_URI);
 	}
 	
 	@After
@@ -28,8 +32,12 @@ public class CarParkingWSTest {
 	public void shouldReturnTheCarParkCode() throws Exception {
 		// input: A1, 8
 		// output: J123
-		
-		fail();
+			
+		Item response = client.request("getCarParkCode","A1", "8");
+		String return1 = response.getContent("return");	
+			
+		assertEquals("J123",return1);// return1.getContent("CarParkCode"));		
+	
 	}
 	
 	@Test
@@ -37,15 +45,22 @@ public class CarParkingWSTest {
 		// input: J123
 		// output: 23 32 S
 		
-		fail();
+		Item response = client.request("getLatitude", "J123");
+		String return1 = response.getContent("return");
+		
+		assertEquals("23 32 S", return1);		
 	}
 	
 	@Test
 	public void shouldReturnTheLongitude() throws Exception {
 		// input: J123
 		// output: 46 37 W
+	
+		Item response = client.request("getLongitude", "J123");
+		String return1 = response.getContent("return");
 		
-		fail();
+		assertEquals("46 37 W", return1);
+		
 	}
 
 }

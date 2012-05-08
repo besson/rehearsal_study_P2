@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import eu.choreos.ServiceDeployer;
 import eu.choreos.vv.clientgenerator.Item;
+import eu.choreos.vv.clientgenerator.ItemImpl;
 import eu.choreos.vv.clientgenerator.WSClient;
 
 public class GlobalWeatherTest {
@@ -39,7 +40,43 @@ public class GlobalWeatherTest {
 		 *  
 		 */
 		
-		fail();
+		//fail();
+	}
+	
+	@Test
+	public void shouldReturnTheTimeForSaoPaulo() throws Exception {
+		WSClient client = new WSClient(WSDL);
+
+		//Item response = new ItemImpl("getWeatherResponse");
+		//Item return1 = response.getChild("return");
+		
+		Item response = client.request("getWeather","Brazil", "Sao Paulo");
+		Item return1 = response.getChild("return");
+		
+		String time = return1.getContent("time");
+		assertEquals("03:00 PM", time);
+	}
+	
+	@Test
+	public void shouldReturnTheRelativeHumidityForSaoPaulo() throws Exception {
+		WSClient client = new WSClient(WSDL);
+
+		Item response = client.request("getWeather","Brazil", "Sao Paulo");
+		Item return1 = response.getChild("return");
+		
+		String time = return1.getContent("relativeHumidity");
+		assertEquals("77%", time);
+	}	
+	
+	@Test
+	public void shouldReturnTheTemperatureForSaoPaulo() throws Exception {
+		WSClient client = new WSClient(WSDL);
+		
+		Item response = client.request("getWeather","Brazil", "Sao Paulo");
+		Item return1 = response.getChild("return");
+		
+		String temperature = return1.getContent("temperature");
+		assertEquals("21C", temperature);
 	}
 
 }

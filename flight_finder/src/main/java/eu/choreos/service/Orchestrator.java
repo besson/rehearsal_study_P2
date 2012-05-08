@@ -20,8 +20,22 @@ public class Orchestrator implements FlightFinder{
 	
 	@Override
 	public FlightInfo getFlightInfo(String id) {
+//id = 0815, company = AA, destination = Paris, time = 130p, terminal = 8		
+			
+		Flight fl= webTrip.getFlight(id);		
+		carParkReservation.setPassengerInfo(id,fl.getTerminal());
 		
-		return null;
+		FlightInfo fi=new FlightInfo();
+		fi.setId(fl.getId());
+		fi.setTerminal(fl.getTerminal());
+		fi.setDestination(fl.getDestination());
+		fi.setTime(fl.getTime());
+		fi.setCompany(fl.getCompany());
+
+				
+		 //http://localhost:4321/mocks/webTrip?wsdl
+		
+		return fi;
 	}
 
 }

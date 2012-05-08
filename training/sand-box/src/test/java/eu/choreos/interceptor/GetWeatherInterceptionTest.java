@@ -9,6 +9,8 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import sun.org.mozilla.javascript.ast.NewExpression;
+
 import eu.choreos.ServiceDeployer;
 import eu.choreos.vv.clientgenerator.Item;
 import eu.choreos.vv.clientgenerator.WSClient;
@@ -36,7 +38,25 @@ final String WSDL = "http://localhost:9876/globalWeather?wsdl";
 		 *  Configure the interceptor to use the port 6789
 		 **/
 		
-		fail();
+		//fail();
 	}
+	
+	@Test
+	public void shouldValidateMessageContentSentToWS2() throws Exception {
+		MessageInterceptor interceptor = new MessageInterceptor("6789");
+		interceptor.interceptTo(WSDL);
+		
+		WSClient client = new WSClient("http://localhost:6789/globalWeatherProxy?wsdl");
+		client.request("getWeather", "Brazil", "Sao Paulo");
+		
+		List<Item> messages = interceptor.getMessages();
+		Item message = messages.get(0);
+		
+		assertEquals("Brazil", message.getContent("countryName"));
+		assertEquals("getWeather", message.getName());
+		
+	}
+	
+	
 
 }

@@ -36,7 +36,24 @@ public class GlobalWeatherMockTest {
 		 *  Configure the mock to use the port 6789)
 		 **/
 		
-		fail();
+		//fail();
+		
+	}
+	
+	@Test
+	public void shouldChangeTheTemperature() throws Exception {
+		WSMock mock = new WSMock("getWeatherMock", "6789", WSDL);
+		mock.start();
+		
+		Item item = buildWeatherResult("05-04-20112", "05:00 AM", "Sao Paulo", "1000", "27C");
+		MockResponse response = new MockResponse().whenReceive("*").replyWith(item);
+		mock.returnFor("getWeather", response);
+		
+		//WSClient client = new WSClient("http://localhost:6789/getWeatherMock?wsdl");		
+		WSClient client = new WSClient(mock.getWsdl());
+		Item result = client.request("getWeather", "Brazil", "Sao Paulo");
+		
+		assertEquals("27C", result.getChild("return").getContent("temperature"));
 		
 	}
 	
